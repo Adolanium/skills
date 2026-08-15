@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "skill_name": "hinge",
+  "evals": [
+    {
+      "id": "supplement-14-day",
+      "prompt": "Should I buy this? Homepage: 'Clinically proven to melt fat in 14 days. Used by Hollywood trainers. Order in the next hour for 40% off.'",
+      "expected_output": "Move is buy the supplement. Hinge is the 14-day fat-loss claim for a usual buyer, not the trainer line or the countdown. Call is Wait or Walk unless a study you opened this turn shows that result.",
+      "assertions": [
+        "Names the move as a purchase.",
+        "Treats the 14-day clinical claim as the hinge, not the Hollywood line or the one-hour discount.",
+        "Does not grade every phrase on its own.",
+        "Call is Wait or Walk unless a study you opened with a fat-loss result is cited.",
+        "Does not call the trainers liars or guess why they said it."
+      ]
+    },
+    {
+      "id": "exploding-offer",
+      "prompt": "I have to decide tonight. Recruiter email: 'Offer expires in 48 hours. 40% of our engineers came from Google. Our last hire from Stripe doubled revenue in a quarter.' Is this a reason to sign?",
+      "expected_output": "Move is sign tonight. The countdown and the Google/Stripe lines are extra unless the user is signing because of brand names. Hinge is whether the written job, pay, and limits match what they need. Call is Wait on the written offer, not Walk just because the email is sales talk.",
+      "assertions": [
+        "Does not treat the 48-hour clock as the hinge.",
+        "Drops '40% from Google' unless the user said brand names are why they would sign.",
+        "Asks for or waits on the written offer.",
+        "Call is Wait, not Walk, only because the email uses haste.",
+        "Does not output a long true/false score for every line."
+      ]
+    },
+    {
+      "id": "charity-ratio",
+      "prompt": "Donate $200? The email says '90 cents of every dollar goes straight to the field. We are the highest-rated charity in this space.'",
+      "expected_output": "Move is donate $200. Hinge is the 90-cent claim, checked against a filing or an audited spend breakdown, not the 'highest-rated' line.",
+      "assertions": [
+        "Hinge is the 90-cent claim or the spend share, not the rating badge.",
+        "Cheap check names a filing, a yearly report, or a spend report from the books.",
+        "Does not Take on the email's own wording.",
+        "If no filing was opened, call is Wait or Walk, not Take.",
+        "Does not call the charity a fraud without a record that contradicts it."
+      ]
+    },
+    {
+      "id": "headcount-not-the-job",
+      "prompt": "I need a tool that exports CSV. Pricing page: 'Trusted by 2 million teams. The operating system for modern work. Join Stripe, Notion, and NASA.' Does this solve my problem?",
+      "expected_output": "Move is buy or use the tool for CSV export. User count and logo wall do not flip that move. Hinge is whether export exists and works. Call follows docs you opened or a test, not 'trusted by.'",
+      "assertions": [
+        "Names CSV export (or the same product act) as the hinge.",
+        "Drops user count and logo wall because they do not flip this move.",
+        "Looks for the owner's current docs or a direct test.",
+        "Does not Walk just because the page is full of brand names.",
+        "If docs you opened confirm export, call may be Take."
+      ]
+    },
+    {
+      "id": "one-video-crime-wave",
+      "prompt": "A post with a phone video: 'This is what the streets are like now. Crime has exploded. Share before they take it down.' I was about to repost.",
+      "expected_output": "Move is share, and maybe change a belief about a crime trend. The video can be real and still not be the hinge for 'exploded.' Hinge is the official trend for the place and crime type. Call is Wait or Walk on sharing the trend claim.",
+      "assertions": [
+        "Splits 'this video happened' from 'crime exploded.'",
+        "Hinge is a published series for a named place and crime type, not the clip.",
+        "Does not call the video fake without looking at it.",
+        "Does not tell the user to share it while the trend is not settled.",
+        "Call on the trend claim is Wait or Walk unless an official series you opened supports it."
+      ]
+    },
+    {
+      "id": "spec-sheet-case",
+      "prompt": "Buying a phone case. Product page: 'Fits the 6.3-inch display.' I only care if that is the screen size of the phone I own, the iPhone 16. Check it.",
+      "expected_output": "Move is buy the case. Hinge is the phone's screen size. After opening Apple's current spec (or the same kind of page), call is Take if it matches 6.3 inches, Wait if you cannot open the spec. Other sales talk on the page does not block Take.",
+      "assertions": [
+        "Hinge is the screen size, not other sales talk on the page.",
+        "Tries to open the maker's spec this turn.",
+        "If the spec you opened matches, call is Take.",
+        "Does not change a matching spec into Wait just because the page is a product page.",
+        "Report stays short (move, hinge, what I opened, call)."
+      ]
+    }
+  ]
+}
