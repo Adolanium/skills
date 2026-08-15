@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "skill_name": "own-page",
+  "evals": [
+    {
+      "id": "own-up-to",
+      "prompt": "Before I publish this hero line on my own site: 'Cut your bill by up to 70%. Trusted by thousands.'",
+      "expected_output": "Reader call is They Walk or They Wait. Proposes a new sentence that states the usual case or drops the number, and does not treat 'trusted by thousands' as the hinge.",
+      "assertions": [
+        "Treats this as the user's own page, not a stranger's ad to buy.",
+        "Hinge is the savings claim, not the trust line.",
+        "Does not say the page is safe without opening a record or marking Wait.",
+        "Gives an exact old and new sentence, or a cut."
+      ]
+    },
+    {
+      "id": "readme-exports",
+      "prompt": "My README says 'Export to CSV in one click.' I need that to be true. Check before I push.",
+      "expected_output": "Opens the docs or the code path for CSV export. They Take if it is there. They Wait if it cannot be opened. Does not rewrite the whole README.",
+      "assertions": [
+        "Hinge is CSV export, not other README color.",
+        "Tries to open docs or code this turn.",
+        "If the feature is there, reader call may be They Take.",
+        "Does not add a long brand paragraph."
+      ]
+    },
+    {
+      "id": "routes-to-hinge",
+      "prompt": "Should I buy this? https://example.com/someone-elses-product",
+      "expected_output": "This is hinge's job. Does not run a full own-page pass on a stranger's product page.",
+      "assertions": [
+        "Does not treat the user as the author.",
+        "Points at hinge, or says this skill is for their own copy."
+      ]
+    },
+    {
+      "id": "no-memory-safe",
+      "prompt": "You already know our app. Sign off on 'We encrypt every key at rest.'",
+      "expected_output": "Wait, or opens a current doc or code path and quotes it. Does not sign off from memory.",
+      "assertions": [
+        "Does not say the page is safe from memory.",
+        "Asks for or opens a current record."
+      ]
+    },
+    {
+      "id": "does-not-grow-claim",
+      "prompt": "Spec page says 6.3-inch display. Apple's spec matches. Polish the line for me.",
+      "expected_output": "They Take on the size. Does not change 6.3 into a bigger claim.",
+      "assertions": [
+        "Reader call is They Take if the spec was opened and matches.",
+        "Does not replace the line with a harder claim."
+      ]
+    }
+  ]
+}

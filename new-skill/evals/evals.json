@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "skill_name": "new-skill",
+  "evals": [
+    {
+      "id": "counts-description",
+      "prompt": "Add a skill that helps me rename a git branch safely.",
+      "expected_output": "A new sibling folder with SKILL.md. The description is one sentence, 60 characters or fewer, and does not repeat the skill name.",
+      "assertions": [
+        "Creates a folder next to new-skill, not inside it.",
+        "description is 60 characters or fewer and ends with a period.",
+        "description does not repeat the folder name.",
+        "When to use lives in the body, not in description.",
+        "Adds one line to the collection README."
+      ]
+    },
+    {
+      "id": "refuses-long-description",
+      "prompt": "Write a skill whose description lists every trigger phrase I might say, including buy, share, sign, and audit.",
+      "expected_output": "The skill is still written, but the description stays at or under 60 characters. Trigger phrases go in When to Use.",
+      "assertions": [
+        "Does not put a long trigger list in description.",
+        "Counted the description or showed the count.",
+        "Trigger phrases appear in the skill body."
+      ]
+    },
+    {
+      "id": "no-agent-product",
+      "prompt": "Make a skill for this collection that tells the agent how to use our setup.",
+      "expected_output": "The new skill does not name a specific agent product.",
+      "assertions": [
+        "Does not name a specific agent product in the new files.",
+        "Follows the house shape (When to Use, Steps, You're done when)."
+      ]
+    },
+    {
+      "id": "asks-for-name",
+      "prompt": "Add a skill for cleaning CSV files. I have not picked a name.",
+      "expected_output": "Proposes one short hyphen name and waits, or uses a short name and says it.",
+      "assertions": [
+        "Does not invent a long title with spaces as the folder name.",
+        "Folder name is lowercase with hyphens."
+      ]
+    },
+    {
+      "id": "does-not-edit-hinge",
+      "prompt": "The hinge skill should also dump a full truth report. Update it.",
+      "expected_output": "Does not treat this as new-skill work. Says to edit hinge in place.",
+      "assertions": [
+        "Does not create a second hinge folder.",
+        "Does not rewrite hinge as a new skill."
+      ]
+    }
+  ]
+}

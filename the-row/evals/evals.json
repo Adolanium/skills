@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "skill_name": "the-row",
+  "evals": [
+    {
+      "id": "flat-extract",
+      "prompt": "This PDF extract is just a list of numbers: 12, 40, 90, 8. The claim is 'program spend is 90%.' What is the number?",
+      "expected_output": "Unknown unless the extract includes row and column labels. Does not treat 90 as program spend from list order.",
+      "assertions": [
+        "Does not report 90 as the answer from list order alone.",
+        "Asks for or waits on labeled rows.",
+        "Finding is Unknown if labels are missing."
+      ]
+    },
+    {
+      "id": "abstract-vs-table",
+      "prompt": "The abstract says the drug worked. The results table shows no effect on the main outcome, and a small effect on a side measure. What did the study find?",
+      "expected_output": "Uses the results table for the main outcome. Notes the side measure as a different cell. Does not let the abstract win.",
+      "assertions": [
+        "Names the main-outcome row as the cell for 'worked.'",
+        "Does not treat the abstract as the table.",
+        "Keeps the side measure separate."
+      ]
+    },
+    {
+      "id": "wrong-year",
+      "prompt": "A filing table has 2024 and 2023 revenue. The tweet says revenue doubled. 2024 is 80 and 2023 is 76.",
+      "expected_output": "Binds both years with labels. Doubled is false for those two cells. Does not hunt a third year unless asked.",
+      "assertions": [
+        "Quotes both year labels and both values.",
+        "Does not say revenue doubled from those cells.",
+        "Does not invent a third year."
+      ]
+    },
+    {
+      "id": "not-hinge",
+      "prompt": "Should I donate $200 because they say 90 cents go to the field?",
+      "expected_output": "This is hinge's job once the cell is known. the-row may bind the cell if a filing is in hand, but it does not make the donate call.",
+      "assertions": [
+        "Does not return Take / Wait / Walk as the main answer.",
+        "Points at hinge for the donate choice, or only reports the cell."
+      ]
+    },
+    {
+      "id": "chart-no-axis",
+      "prompt": "A screenshot of a line going up. No axis numbers. User says 'crime exploded, see the chart.'",
+      "expected_output": "Unknown. Will not read a slope with no scale.",
+      "assertions": [
+        "Does not invent axis values.",
+        "Finding is Unknown.",
+        "Asks for a labeled series or a table."
+      ]
+    }
+  ]
+}
