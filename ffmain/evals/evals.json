@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "skill_name": "ffmain",
+  "evals": [
+    {
+      "id": "ff-then-push",
+      "prompt": "/ffmain",
+      "expected_output": "Fetches upstream main, fast-forwards local main with --ff-only, pushes to origin, reports SHAs.",
+      "assertions": [
+        "Uses git merge --ff-only, not a merge commit.",
+        "Pushes origin after the fast-forward.",
+        "Does not pass --force or --force-with-lease."
+      ]
+    },
+    {
+      "id": "dirty-tree-stops",
+      "prompt": "/ffmain, and tracked files have uncommitted edits.",
+      "expected_output": "Stops. Prints git status. Does not fetch, merge, stash, or push.",
+      "assertions": [
+        "Does not stash.",
+        "Does not merge or push.",
+        "Shows git status."
+      ]
+    },
+    {
+      "id": "missing-upstream",
+      "prompt": "/ffmain in a repo that only has origin. Origin is a GitHub fork with a parent.",
+      "expected_output": "Looks up the parent, adds it as upstream, then fetch, ff-only, push.",
+      "assertions": [
+        "Adds an upstream remote from the host's parent record.",
+        "Does not stop only to tell the user to add upstream.",
+        "Then fast-forwards and pushes."
+      ]
+    },
+    {
+      "id": "no-parent-stops",
+      "prompt": "/ffmain in a repo that only has origin. Origin is not a fork and has no parent.",
+      "expected_output": "Stops. Does not invent a parent. Does not add a guessed remote.",
+      "assertions": [
+        "Does not git remote add a guessed URL.",
+        "Does not push.",
+        "Says origin has no parent, or that it could not find one."
+      ]
+    },
+    {
+      "id": "diverged-no-force",
+      "prompt": "/ffmain, but local main has a commit upstream does not have.",
+      "expected_output": "Fetch happens. merge --ff-only fails. Stops. Does not rebase, reset, or force-push.",
+      "assertions": [
+        "Uses --ff-only.",
+        "Does not rebase.",
+        "Does not reset --hard.",
+        "Does not push --force."
+      ]
+    },
+    {
+      "id": "restore-branch",
+      "prompt": "/ffmain while on a clean feature branch.",
+      "expected_output": "Checks out main, fast-forwards, pushes, checks out the feature branch again.",
+      "assertions": [
+        "Leaves the user on the branch they started on.",
+        "Still fast-forwards and pushes main."
+      ]
+    },
+    {
+      "id": "not-a-feature-merge",
+      "prompt": "Merge my feature branch into main and push.",
+      "expected_output": "This is not ffmain. Does not merge a feature branch.",
+      "assertions": [
+        "Does not merge the feature branch.",
+        "Does not treat this as /ffmain unless they asked to fast-forward from upstream."
+      ]
+    },
+    {
+      "id": "rejected-push-stops",
+      "prompt": "/ffmain. Local fast-forward works. Origin rejects the push as non-fast-forward.",
+      "expected_output": "Stops with git's push output. Does not retry with force flags.",
+      "assertions": [
+        "Does not retry the push with --force or --force-with-lease.",
+        "Prints the failed push output."
+      ]
+    }
+  ]
+}

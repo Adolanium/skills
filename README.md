@@ -21,6 +21,7 @@ Or copy a skill folder into the place your app reads skills from. That is often 
 The agent can pick these on its own, and you can type them.
 
 - **[hinge](./hinge/SKILL.md)** - Find the claim that would flip an ad, post, or pitch. Returns Take, Wait, or Walk.
+- **[ffmain](./ffmain/SKILL.md)** - Fast-forward main from upstream, then push origin.
 - **[new-skill](./new-skill/SKILL.md)** - Add a skill folder that follows these house rules.
 - **[own-page](./own-page/SKILL.md)** - Check your page for the claim a reader would walk on.
 - **[the-row](./the-row/SKILL.md)** - Read the right row of a table, filing, or chart.
